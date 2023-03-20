@@ -1,0 +1,34 @@
+[Defines]
+  PLATFORM_NAME           = Tetris
+  PLATFORM_GUID           = AE18CA2A-8F7D-45B1-BE30-A93552FE96DC
+  PLATFORM_VERSION        = 0.1
+  DSC_SPECIFICATION       = 1.28
+  OUTPUT_DIRECTORY        = ${EDK_BUILD_DIR}
+  SUPPORTED_ARCHITECTURES = IA32|IPF|X64|EBC
+  BUILD_TARGETS           = DEBUG|RELEASE
+
+[LibraryClasses]
+  # Base packages
+  BaseLib | MdePkg/Library/BaseLib/BaseLib.inf
+  BaseMemoryLib | MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
+  DebugLib | MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf
+  RegisterFilterLib | MdePkg/Library/RegisterFilterLibNull/RegisterFilterLibNull.inf
+  UefiApplicationEntryPoint | MdePkg/Library/UefiApplicationEntryPoint/UefiApplicationEntryPoint.inf
+
+  # UefiLib
+  DevicePathLib | MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
+  MemoryAllocationLib | MdePkg/Library/UefiMemoryAllocationLib/UefiMemoryAllocationLib.inf
+  PcdLib | MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+  UefiBootServicesTableLib | MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib.inf
+  UefiRuntimeServicesTableLib | MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
+  UefiRuntimeLib | MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
+  UefiLib | MdePkg/Library/UefiLib/UefiLib.inf
+
+  PrintLib | MdePkg/Library/BasePrintLib/BasePrintLib.inf
+
+
+#[PcdsFeatureFlag]
+#  gEfiMdePkgTokenSpaceGuid.PcdUefiLibMaxPrintBufferSize|320|UINT32|0x101 # Given from MdePkg.dec
+
+[Components]
+  TetrisPkg/Tetris.inf

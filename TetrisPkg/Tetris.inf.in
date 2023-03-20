@@ -1,0 +1,33 @@
+[Defines]
+  INF_VERSION = 1.28
+  BASE_NAME   = TetrisApp
+  FILE_GUID   = 539b1c67-0fd1-307d-8437-601f66d0bf1a
+  MODULE_TYPE = UEFI_APPLICATION
+  ENTRY_POINT = efi_main
+  SPEC        = TETRIS_EFI_PROVIDER_EDK
+
+[BuildOptions]
+  GCC:*_*_*_CC_FLAGS = ${EDK_COMPILER_FLAGS_SEPARATED} -D${EDK_DEFINITIONS_SEPARATED_GCC}
+  MSFT:*_*_*_CC_FLAGS = ${EDK_COMPILER_FLAGS_SEPARATED} /D${EDK_DEFINITIONS_SEPARATED_MSVC}
+
+[Sources.X64]
+  ${EDK_SOURCE_SEPARATED}
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
+  PcdLib
+  UefiLib
+  UefiApplicationEntryPoint
+  UefiBootServicesTableLib
+
+[Protocols]
+  gEfiLoadedImageProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiSimpleTextInProtocolGuid
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdUefiLibMaxPrintBufferSize  # For printing to the console
