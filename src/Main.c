@@ -50,7 +50,9 @@ int TETRISAPI RunTetris() {
     return 0;
   }
 
+#ifdef TETRIS_LOG_ENABLED
   Efi_WaitAnyKey();
+#endif
 
   Ren_Clear();
   Ui_PrintLogo(game.totalCols, game.totalRows);
