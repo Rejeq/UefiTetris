@@ -24,7 +24,7 @@ This project can be builded with severel efi providers:
 - [gnu-efi](https://sourceforge.net/projects/gnu-efi/)
 - [EDK2](https://github.com/tianocore/edk2)
 
-Building some different depending of the provider
+Building some different depending of the provider  
 First make some common stuff:
 
 ```shell
@@ -34,7 +34,7 @@ mkdir build
 cd build
 ```
 
-##### Gnu-efi
+#### Gnu-efi
 
 ```shell
 ...
@@ -43,7 +43,7 @@ cmake --build . -j 2
 ```
 The gnu-efi library will be automatically loaded, but if you have problems, you can install it manually by setting TETRIS_FETCHING=OFF and providing GNU_EFI_DIR path to the efi directory
 
-##### EDK2
+#### EDK2
 **If you use clang, you must also install the llvmGold extension**
 
 ```shell
@@ -59,17 +59,18 @@ If the build process was successful, the binaries should be in: `./<build_mode><
 
 ## Launching
 
-#### Qemu
-First of all, we need to get OVMF
-This can be obtained by several methods:
-1. Using the package manager
-	In Ubuntu run: `sudo apt ovmf`
-	In other distros must be similar
-2. [Manual building](https://github.com/tianocore/tianocore.github.io/wiki/How-to-build-OVMF)
-	If you have troubles, you can take the commands from nightly build github repository
-1. Download [nightly build](https://retrage.github.io/edk2-nightly/).
+### Qemu
+First of all, we need to get OVMF  
+This can be obtained by several methods:  
+1. Using the package manager  
+	In Ubuntu run: `sudo apt ovmf`  
+	In other distros must be similar  
+2. [Manual building](https://github.com/tianocore/tianocore.github.io/wiki/How-to-build-OVMF)  
+	If you have troubles, you can take the commands from nightly build github repository  
+1. Download [nightly build](https://retrage.github.io/edk2-nightly/)  
 
-Next we need to create FAT image (**mtools required**). For gnu-efi it will be created automatically, so you can skip this point
+Next we need to create FAT image (**mtools required**).  
+For gnu-efi it will be created automatically, so you can skip this point
 ```shell
 bash scripts/MakeFat.sh [Efi program]
 bash scripts/RunQemu.sh [FAT image] --arch="x86_64" --ovmf=[path to ovmf]
@@ -79,17 +80,17 @@ bash scripts/RunQemu.sh [FAT image] --arch="x86_64" --ovmf=[path to ovmf]
 > ```shell
 > mkdir -p boot/EFI/BOOT
 > cp [Efi program] boot/EFI/BOOT/BOOTX64.EFI
-> bash scripts/RunQemu.sh --arch="x86_64" --ovmf=[path to ovmf] --no-image -- -hda fat:rw:boot
+> bash scripts/RunQemu.sh --arch=... --ovmf=... --no-image -- -hda fat:rw:boot
 > ```
 
-#### VirtualBox
+### VirtualBox
 Create .iso file by running: (**xorriso required**)
 ```shell
 bash ../scripts/MakeIso.sh [FAT image]
 ```
 Create  machine as usual, and set `Enable EFI` flag
 
-> Not forget to set correct architecture
+> Not forget to set correct architecture  
 > Also you can set minimum ram and disk space
 
 ## Debugging
@@ -98,9 +99,9 @@ Go to build dir and reconfigure cmake:
 cmake -DCMAKE_BUILD_Type=Debug -DTETRIS_LOGGING=ON ..
 ```
 
-Rebuild project
-Run tetris, and you will see in the console "ImageBase: 0x--------"
-Meomrize the hex value and start gdb session:
+Rebuild project  
+Run tetris, and you will see in the console "ImageBase: 0x--------"  
+Meomrize the hex value and start gdb session:  
 
 ```shell
 gdb --command=../scripts/GdbSetupEfi.py'
