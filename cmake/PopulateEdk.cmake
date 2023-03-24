@@ -43,12 +43,16 @@ function(BuildTypeToEdk buildType edkBuildType)
   set(${edkBuildType} "${buildType}" PARENT_SCOPE)
 endfunction()
 
-if (NOT TETRIS_EDK_REPO)
+if(NOT TETRIS_EDK_REPO)
   message(FATAL_ERROR "Please provide a TETRIS_EDK_REPO variable")
 endif()
 
 option(EDK_SHORTCUT_DIR "Path to the to the EDK_REPO symlink. Must be a full path" "${TETRIS_BIN_DIR}/edk")
-option(EDK_THREAD_COUNT "The number of concurrent threads at the build time" 0)
+option(EDK_THREAD_COUNT "The number of concurrent threads at the build time")
+
+if (NOT DEFINED ${EDK_THREAD_COUNT})
+  set(EDK_THREAD_COUNT 0)
+endif()
 
 set(EDK_REPO "${TETRIS_EDK_REPO}") # Path to the EDK2 source tree
 set(EDK_BUILD_DIR "${TETRIS_BIN_DIR}") # Path to the EDK2 build folder
@@ -84,8 +88,8 @@ execute_process(
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${TETRIS_SOURCE_DIR} ${EDK_PKG_DIR}/src
 )
 
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+if("${EDK_BUILD_TYPE}" STREQUAL "DEBUG")
+  if("${EDK_CHAIN}" MATCHES "VS") # if msvc compiler
     list(APPEND EDK_COMPILER_FLAGS "/Od")
   else()
     list(APPEND EDK_COMPILER_FLAGS "-O0")
