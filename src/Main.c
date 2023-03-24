@@ -81,9 +81,20 @@ int TETRISAPI RunTetris() {
   Tetris_Shutdown(&game);
 
 #ifdef TETRIS_EFI_DEBUG_MEMORY
+#define TETRIS_MEM_LOGGING_HINT "logging is not destroyed"
+
+#ifdef TETRIS_EFI_PROVIDER_EDK
+#define TETRIS_MEM_HINT TETRIS_MEM_LOGGING_HINT " + edk printing this message"
+#else
+#define TETRIS_MEM_HINT TETRIS_MEM_LOGGING_HINT
+#endif
+
   LOG_INFO(L"Total malloc: %d", Efi_DbgGetAllocateCount());
-  LOG_INFO(L"Total free: %d", Efi_DbgGetFreeCount());
+  LOG_INFO(L"Total free: %d (" TETRIS_MEM_HINT ")", Efi_DbgGetFreeCount());
   Efi_WaitAnyKey();
+
+#undef TETRIS_MEM_HINT
+#undef TETRIS_MEM_LOGGING_HINT
 #endif
 
   return wantExit;

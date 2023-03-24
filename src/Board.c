@@ -177,7 +177,7 @@ void Board_CwRotate(Board* board) {
   }
 
 
-  Efi_Free(data);
+  Efi_Free(board->data);
   board->data = rotated;
 
   int tmp = board->width;

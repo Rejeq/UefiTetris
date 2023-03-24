@@ -107,8 +107,10 @@ void Tetris_Shutdown(Tetris_Data *game) {
   for (int i = 0; i < TETROMINO_COUNT; i++) {
     Board_Destroy(&game->tetros[i]);
   }
-  Ren_Restore(game->renData);
+
+  Ren_Destroy(game->renData);
   Board_Destroy(&game->board);
+  Board_Destroy(&game->activeTetro);
 }
 
 int Tetris_SwapHold(Tetris_Data *game) {
