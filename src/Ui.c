@@ -391,6 +391,12 @@ void Ui_DrawNextTetromino(const Tetris_Data *game) {
   if (game->nextActiveTetro == NULL)
     return;
 
+  // FIXME: Previos board is not cleared properly if prev is not valid
+  // This appears when Tetris_SwapHold is called when game->currentActiveTetro
+  // is J or L tetromino
+  // Possisble fixes:
+  // - Initialize game->holdTetro with max size value
+  // - In this function handle invalid board with a clean board with max size value
   const Board *prev = game->currentActiveTetro;
   const Board *curr = game->nextActiveTetro;
   int currX = game->boardPosX + (game->board.width * 2);
