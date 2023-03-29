@@ -83,6 +83,8 @@ int Ren_Draw(const Ren_Data* ren, const Board* board, int posX, int posY,
              char activeChar, char emptyChar, int checkBackground) {
   if (board == NULL)
     return 1;
+  if (!BOARD_VALID(board))
+    return 1;
 
   for (int y = 0; y < board->height; ++y) {
     Efi_SetCursorPosition(posX, posY + y);
