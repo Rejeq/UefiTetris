@@ -154,3 +154,8 @@ Efi_LoadedImageProtocol* Efi_GetLoadedImage(EFI_HANDLE* handle) {
                     &gEfiLoadedImageProtocolGuid, (void**)&image);
   return image;
 }
+
+void Efi_SetWatchdogTimer(size_t seconds, uint64_t code, size_t size, char16_t* data)
+{
+	uefi_call_wrapper(gBS->SetWatchdogTimer, 4, seconds, code, size, data);
+}

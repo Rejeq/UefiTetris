@@ -17,5 +17,6 @@ void TETRISAPI Efi_Srand(unsigned seed);
 size_t TETRISAPI Efi_Rand(void);
 
 Efi_LoadedImageProtocol* TETRISAPI Efi_GetLoadedImage(EFI_HANDLE *handle);
+void TETRISAPI Efi_SetWatchdogTimer(size_t seconds, uint64_t code, size_t size, char16_t* data);
 
 #endif  // TETRIS_EFI_MISC_H

@@ -106,6 +106,8 @@ EFI_STATUS TETRISAPI efi_main(EFI_HANDLE image, EFI_SYSTEM_TABLE *systab) {
   InitializeLib(image, systab);
 #endif
 
+  Efi_SetWatchdogTimer(0, 0x0, 0, NULL);
+
 #ifdef TETRIS_LOG_ENABLED
   Efi_ClearScreen();
   if (Log_Init(0, 0, 20)) {
